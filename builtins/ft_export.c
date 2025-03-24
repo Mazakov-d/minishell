@@ -6,11 +6,40 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/21 17:58:07 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 15:18:05 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+
+int	print_export(t_env *env, int i)
+{
+	int	q;
+
+	while (env->prev)
+		env = env->prev;
+	while (env->next)
+	{
+		printf("export ");
+		i = 0;
+		q = 0;
+		while (env->line[i])
+		{
+			if ((i > 0) && (env->line[i - 1] == '='))
+			{
+				printf("\"");
+				q++;
+			}
+			printf("%c", env->line[i]);
+			i++;
+		}
+		if (q == 1)
+			printf("\"");
+		printf("\n");
+		env = env->next;
+	}
+	return (0);
+}
 
 int	add_lst_str(t_env *prev, char *var)
 {
@@ -65,7 +94,7 @@ int	ft_export(t_env *env, char *new_var)
 	t_env	*save;
 
 	if (!new_var)
-		return (0);
+		return (print_export (env, 0));
 	var_name = get_var_name(new_var);
 	if (!var_name)
 		return (1);
@@ -80,3 +109,16 @@ int	ft_export(t_env *env, char *new_var)
 		modify_line(save, new_var);
 	return (0);
 }
+
+// int main(int ac, char **av, char **env)
+// {
+// 	t_env *menv;
+
+// 	menv = env_to_struct(env);
+// 	ft_export(menv, NULL);
+// while (menv->next)
+// {
+// 	printf("%s\n", menv->line);
+// 	menv = menv->next;
+// }
+// }

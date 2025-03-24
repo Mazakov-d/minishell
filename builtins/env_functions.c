@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:19:12 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/21 17:36:33 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 15:19:51 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,3 @@ t_env	*find_in_env(t_env *env, char *str)
 	}
 	return (NULL);
 }
-

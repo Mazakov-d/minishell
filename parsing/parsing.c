@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/23 18:38:12 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/24 16:00:12 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,34 @@ int	word_len(char *str)
 
 char *str_dup_minishell(char *s, int *i, int k, int j)
 {
-    char *str;
-    int dq;
-    int sq;
+    char	*str;
+    int		dq;
+    int		sq;
 
-    str = malloc(sizeof(char) * (word_len(s + *i) + 1));
-    if (!str)
-        return (NULL);
-    dq = 0;
-    sq = 0;
-    while (s && s[k])
-    {
-        is_in_quote(s[k], &sq, &dq);
-        if ((s[k] == ' ') && !(sq % 2) && !(dq % 2))
-            break;
-        if (s[k] == '\'' && ((sq % 2) || (!(dq % 2))))
-            k++;
-        else if (s[k] == '\"' && ((dq % 2) || (!(sq % 2))))
-            k++;
-        else
-        {
-            str[j] = s[k];
-            j++;
-            k++;
-        }
-    }
-    *i = k;
-    str[j] = '\0';
-    return (str);
+	str = malloc(sizeof(char) * (word_len(s + *i) + 1));
+	if (!str)
+		return (NULL);
+	dq = 0;
+	sq = 0;
+	while (s && s[k])
+	{
+		is_in_quote(s[k], &sq, &dq);
+		if ((s[k] == ' ') && !(sq % 2) && !(dq % 2))
+			break;
+		if (s[k] == '\'' && ((sq % 2) || (!(dq % 2))))
+			k++;
+		else if (s[k] == '\"' && ((dq % 2) || (!(sq % 2))))
+			k++;
+		else
+		{
+			str[j] = s[k];
+			j++;
+			k++;
+		}
+	}
+	*i = k;
+	str[j] = '\0';
+	return (str);
 }	
 
 char	**split_minishell(char *str)
@@ -125,14 +125,14 @@ char	**split_minishell(char *str)
 	return (strs);
 }
 
-int main(int ac, char **av)
-{
-	int i = 0;
-	char **strs = split_minishell("echo           s\"a\"l\"u\"t         est-ce que ca v'aaaaaa' 'asd'sdfsf");
-	while (strs[i])
-	{
-		printf("%s\n", strs[i]);
-		i++;
-	}
-}
+// int main(int ac, char **av)
+// {
+// 	int i = 0;
+// 	char **strs = split_minishell("echo          '''ghfghjfghfhgfgh");
+// 	while (strs[i])
+// 	{
+// 		printf("%s\n", strs[i]);
+// 		i++;
+// 	}
+// }
 
