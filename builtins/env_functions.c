@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:19:12 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 15:19:51 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:19:13 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,18 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-t_env	*find_in_env(t_env *env, char *str)
+t_env	*find_in_env(t_env **env, char *str)
 {
-	t_env	*rtn;
 	t_env	*save;
 
-	save = env;
-	while (env->prev)
-		env = env->prev;
-	while (env->next)
+	save = *env;
+	while (save->prev)
+		save = save->prev;
+	while (save->next)
 	{
-		if (ft_strcmp(env->line, str))
-		{
-			rtn = env;
-			env = save;
-			return (rtn);
-		}
-		env = env->next;
+		if (ft_strcmp(save->line, str))
+			return (save);
+		save = save->next;
 	}
 	return (NULL);
 }

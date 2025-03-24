@@ -6,14 +6,14 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/24 16:00:12 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 19:20:04 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-static void	is_in_quote(char c, int *sq, int *dq)
+void	is_in_quote(char c, int *sq, int *dq)
 {
 	if (c == '\'' && (*dq % 2) == 0)
 		*sq = *sq + 1;

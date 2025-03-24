@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:54 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 16:41:04 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 19:03:02 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,21 @@ char	*get_pwd(char *prefix)
 	return (pwd);
 }
 
-void	put_pwd(t_env *env, char **pwd)
+void	put_pwd(t_env *env, char **pwd, int i)
 {
 	char	*save;
+	t_env	*env_ptr;
 
-	if (!env)
+	if (i == 2)
+		env_ptr = find_in_env(&env, "OLDPWD");
+	else
+		env_ptr = find_in_env(&env, "PWD");
+	if (!env_ptr)
 		add_lst_str(env, *pwd);
 	else
 	{
-		save = env->line;
-		env->line = *pwd;
+		save = env_ptr->line;
+		env_ptr->line = *pwd;
 		free(save);
 	}
 }
@@ -83,13 +88,13 @@ int	get_home(t_env *env, char **arg)
 {
 	t_env	*ptr;
 
-	ptr = find_in_env(env, "HOME");
+	ptr = find_in_env(&env, "HOME");
 	if (!ptr)
 	{
 		printf("cd: HOME not set\n");
 		return (1);
 	}
-	*arg = ft_strcat(env->line + 4, NULL);
+	*arg = ft_strcat(ptr->line + 5, NULL);
 	if (!*arg)
 		return (2);
 	return (0);
@@ -106,35 +111,31 @@ int	ft_cd(t_env *env, char *arg)
 	old_pwd = get_pwd("OLDPWD=");
 	if (!old_pwd)
 		return (2);
-	printf("%s\n", old_pwd);
 	if (chdir(arg) == -1)
 	{
 		free(old_pwd);
 		printf("cd: %s: No such file or directory\n", arg);
 		return (1);
 	}
-	env_pwd = find_in_env(env, "PWD=");
 	new_pwd = get_pwd("PWD=");
 	if (!new_pwd)
 	{
 		free(old_pwd);
 		return (2);
 	}
-	put_pwd(env, &new_pwd);
-	env_pwd = find_in_env(env, "OLDPWD=");
-	put_pwd(env, &old_pwd);
+	put_pwd(env, &new_pwd, 1);
+	put_pwd(env, &old_pwd, 2);
 	return (0);
 }
 
-int main(int ac, char **av, char **env)
-{
-	t_env *e;
+// int main(int ac, char **av, char **env)
+// {
+// 	t_env *e;
 
-	e = env_to_struct(env);
-	// ft_pwd();
-	// ft_env(e);
-	if (ft_cd(e, ".."))
-		printf("OKcd\n");
-	// ft_pwd();
-	// ft_env(e);
-}
+// 	e = env_to_struct(env);
+// 	// ft_env(e);
+// 	if (ft_cd(e, "jhdsafjkhasj"))
+// 		printf("OKcd\n");
+// 	ft_pwd();
+// 	// ft_env(e);
+// }

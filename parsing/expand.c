@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 14:16:57 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 18:36:39 by dmazari          ###   ########.fr       */
+/*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
+/*   Updated: 2025/03/24 19:26:50 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-
-void	ft_env(t_env *env)
+char	*check_var(char	*line, t_data *data)
 {
-	while (env->prev)
-		env = env->prev;
-	while (env->next)
+	char	*str;
+	int		dq;
+	int		sq;
+	int		i;
+
+	while (line && line[i])
 	{
-		printf("%s\n", env->line);
-		env = env->next;
+		is_in_quote(line[i], &sq, &dq);
+		if ((line[i] == '$') && !(sq % 2))
+			expand_var(line + i, data);
+		
 	}
 }

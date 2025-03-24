@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 15:18:05 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:57:22 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,22 @@ int	print_export(t_env *env, int i)
 int	add_lst_str(t_env *prev, char *var)
 {
 	t_env	*new_node;
-	t_env	*next;
+	t_env	*ptr;
 
+	if (!prev->prev && !prev->next && !prev->line)
+	{
+		prev->line = var;
+		ptr = add_lst(prev);
+		if (!ptr)
+			return (2);
+		return (0);
+	}
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (1);
-	next = prev->next;
 	new_node->prev = prev;
-	new_node->next = next;
+	new_node->next = prev->next;
 	prev->next = new_node;
-	next->prev = new_node;
 	new_node->line = var;
 	return (0);
 }
@@ -84,13 +90,17 @@ char	*get_var_name(char *str)
 
 void	modify_line(t_env *env, char *new_line)
 {
-	free(env->line);
+	char	*save;
+
+	save = env->line;
+	free(save);
 	env->line = new_line;
 }
 
 int	ft_export(t_env *env, char *new_var)
 {
 	char	*var_name;
+	char	*line;
 	t_env	*save;
 
 	if (!new_var)
@@ -98,7 +108,7 @@ int	ft_export(t_env *env, char *new_var)
 	var_name = get_var_name(new_var);
 	if (!var_name)
 		return (1);
-	save = find_in_env(env, var_name);
+	save = find_in_env(&env, var_name);
 	free(var_name);
 	if (!save)
 	{
@@ -113,12 +123,15 @@ int	ft_export(t_env *env, char *new_var)
 // int main(int ac, char **av, char **env)
 // {
 // 	t_env *menv;
-
+// 	char	*str1 = ft_strdup("a=salut");
+// 	char	*str2 = ft_strdup("b=coucou");
+// 	char	*str3 = ft_strdup("a=coucou");
 // 	menv = env_to_struct(env);
+
+// 	ft_export(menv, str1);
+// 	ft_export(menv, str2);
+// 	ft_export(menv, str3);
+// 	ft_env(menv);
 // 	ft_export(menv, NULL);
-// while (menv->next)
-// {
-// 	printf("%s\n", menv->line);
-// 	menv = menv->next;
-// }
+// 	free_new_env(menv);
 // }

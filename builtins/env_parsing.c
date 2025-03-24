@@ -6,7 +6,7 @@
 /*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:40:11 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 14:59:39 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:50:18 by dmazari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ t_env	*env_to_struct(char **env)
 	int		i;
 
 	new_env = malloc(sizeof(t_env));
-	if (!env)
+	if (!new_env)
 		return (NULL);
 	save = new_env;
 	new_env->prev = NULL;
+	new_env->line = NULL;
 	i = 0;
 	while (env && env[i])
 	{
@@ -98,5 +99,6 @@ t_env	*env_to_struct(char **env)
 			return (free_new_env(save));
 		i++;
 	}
+	new_env->next = NULL;
 	return (save);
 }
