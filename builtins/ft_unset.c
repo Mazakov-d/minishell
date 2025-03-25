@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:02:42 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 19:09:04 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:10:16 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_unset(t_env *env, char *var_name)
 {
 	t_env	*save;
 
-	save = find_in_env(&env, var_name);
+	save = find_in_env(env, var_name);
 	if (save)
 		remove_node(save);
 	return (0);

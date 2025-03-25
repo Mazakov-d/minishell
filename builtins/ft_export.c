@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 18:57:22 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:10:13 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_export(t_env *env, char *new_var)
 	var_name = get_var_name(new_var);
 	if (!var_name)
 		return (1);
-	save = find_in_env(&env, var_name);
+	save = find_in_env(env, var_name);
 	free(var_name);
 	if (!save)
 	{

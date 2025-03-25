@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/24 19:20:04 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 14:40:18 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ char *str_dup_minishell(char *s, int *i, int k, int j)
 		is_in_quote(s[k], &sq, &dq);
 		if ((s[k] == ' ') && !(sq % 2) && !(dq % 2))
 			break;
-		if (s[k] == '\'' && ((sq % 2) || (!(dq % 2))))
+		if (s[k] == '$' && s[k + 1] == '\'')
+			k++;
+		else if (s[k] == '\'' && ((sq % 2) || (!(dq % 2))))
 			k++;
 		else if (s[k] == '\"' && ((dq % 2) || (!(sq % 2))))
 			k++;

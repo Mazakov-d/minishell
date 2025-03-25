@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:19:12 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 18:19:13 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:17:35 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
+	if (!s2)
+		return (0);
 	while (s1 && s2 && s1[i] == s2[i])
 		i++;
 	if (!s1[i] && !s2[i])
@@ -26,11 +28,11 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-t_env	*find_in_env(t_env **env, char *str)
+t_env	*find_in_env(t_env *env, char *str)
 {
 	t_env	*save;
 
-	save = *env;
+	save = env;
 	while (save->prev)
 		save = save->prev;
 	while (save->next)

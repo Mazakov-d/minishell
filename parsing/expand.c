@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 20:06:22 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:42:14 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "minishell.h"
+#include <stdio.h>
 
 char	*expand_null(char *line, int flag, int save, int i)
 {
@@ -32,55 +33,60 @@ char	*expand_null(char *line, int flag, int save, int i)
 		{
 			save = dq;
 			flag++;
-			while (line[i] && line[i] != ' ' && save == dq && !(sq % 2))
+			while (line[i] && line[i] != ' ' && !(sq % 2))
 			{
 				is_in_quote(line[i], &sq, &dq);
+				if (save != dq)
+					break ;
 				i++;
 			}
 		}
 		else
 			dup[j++] = line[i++];
 	}
-	dup[j] == 0;
-	return (dup)
+	dup[j] = '\0';
+	return (dup);
 }
 
-char	*expanded_line_var(char *line, char *var_value, int i, int save)
+char	*expand_line_var(char *line, char *var_value, int i_var, int save)
 {
 	char	*s;
 	int		dq;
 	int		sq;
 	int		flag;
-	int		j;
-	int		k;
+	int		i_line;
+	int		i_s;
 
-	while (var_value && var_value[i] && var_value[i - 1] != '=')
-		i++;
-	s = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(var_value + i) + 1));
+	while (var_value && var_value[i_var] && var_value[i_var - 1] != '=')
+		i_var++;
+	s = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(var_value + i_var) + 2));
 	if (!s)
 		return (NULL);
-	i = 0;
 	sq = 0;
 	dq = 0;
 	flag = 0;
-	j = 0;
-	k = 0;
-	while (line && line[i])
+	i_line = 0;
+	i_s = 0;
+	while (line && line[i_line])
 	{
-		is_in_quote(line[i], &sq, &dq);
-		if (line[i] == '$' && !(sq % 2) && (flag == 0))
+		is_in_quote(line[i_line], &sq, &dq);
+		if (line[i_line] == '$' && !(sq % 2) && (flag == 0))
 		{
 			save = dq;
 			flag++;
-			while (line[i] && line[i] != ' ' && save == dq && !(sq % 2))
-				is_in_quote(line[i++], &sq, &dq);
-			while (var_value && var_value[j])
-				s[k++] == var_value[j++];
+			while (line[i_line] && line[i_line] != ' ' && !(sq % 2))
+			{
+				is_in_quote(line[i_line++], &sq, &dq);
+				if (save != dq)
+					break;
+			}
+			while (var_value && var_value[i_var])
+				s[i_s++] = var_value[i_var++];
 		}
 		else
-			s[k++] = line[i++];
+			s[i_s++] = line[i_line++];
 	}
-	s[k] = 0;
+	s[i_s] = '\0';
 	return (s);
 }
 
@@ -91,7 +97,7 @@ char	*ft_strndup(char *str, int n)
 	int		i;
 
 	i = 0;
-	dup = malloc(sizeof(char) * n + 1);
+	dup = malloc(sizeof(char) * (n + 1));
 	if (!dup)
 		return (NULL);
 	while (str && str[i] && i < n)
@@ -110,14 +116,14 @@ char	*search_var_in_env(char *line, char *var, int end_var, t_env *env)
 	char	*expanded_line;
 	int		i;
 
-	var_name = ft_strndup(var, end_var);
+	var_name = ft_strndup(var + 1, end_var);
 	if (!var_name)
 		return (NULL);
 	ptr = find_in_env(env, var_name);
 	if (!ptr)
 		expanded_line = expand_null(line, 0, 0, 0);
 	else
-		expanded_line = expand_line_var(line, ptr->line, 0);
+		expanded_line = expand_line_var(line, ptr->line, 0, 0);
 	free(line);
 	free(var_name);
 	return (expanded_line);
@@ -135,18 +141,36 @@ char	*expand_var(char *line, t_data *data, int i, int j)
 	while (line && line[i])
 	{
 		is_in_quote(line[i], &sq, &dq);
-		if (line[i] == '$' && !(sq % 2))
+		if (line[i] == '$' && !(sq % 2) && line[i + 1])
 		{
-			j = i;
-			save = dq;
-			while (line[j] && line[j] != ' ' && save == dq && !(sq % 2))
+			if (line[i + 1] != ' ' && line[i + 1] != '"' && line[i + 1] != '\'')
 			{
-				is_in_quote(line[j], &sq, &dq);
-				j++;
+				j = i;
+				save = dq;
+				while (line[j] && line[j] != ' ' && !(sq % 2))
+				{
+					is_in_quote(line[j], &sq, &dq);
+					if (dq != save)
+						break;
+					j++;
+				}
+				line = search_var_in_env(line, line + i, (j - i - 1), data->env);
 			}
-			line = search_var_in_env(line, line + i, (j - i), data->env);
 		}
 		i++;
 	}
+	return (line);
+}
 
+int main(int ac, char **av, char **env)
+{
+	t_data	*data = malloc(sizeof(t_data));
+	char	*line;
+
+	line = ft_strdup("salut $a \"$p\" ca va");
+	data->env = env_to_struct(env);
+	printf("%s\n", line);
+	ft_export(data->env, "a=salut");
+	ft_export(data->env, "b=coucou");
+	printf("%s\n", expand_var(line, data, 0, 0));
 }

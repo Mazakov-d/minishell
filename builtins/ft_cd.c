@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:54 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 19:03:02 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:10:10 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	put_pwd(t_env *env, char **pwd, int i)
 	t_env	*env_ptr;
 
 	if (i == 2)
-		env_ptr = find_in_env(&env, "OLDPWD");
+		env_ptr = find_in_env(env, "OLDPWD");
 	else
-		env_ptr = find_in_env(&env, "PWD");
+		env_ptr = find_in_env(env, "PWD");
 	if (!env_ptr)
 		add_lst_str(env, *pwd);
 	else
@@ -88,7 +88,7 @@ int	get_home(t_env *env, char **arg)
 {
 	t_env	*ptr;
 
-	ptr = find_in_env(&env, "HOME");
+	ptr = find_in_env(env, "HOME");
 	if (!ptr)
 	{
 		printf("cd: HOME not set\n");

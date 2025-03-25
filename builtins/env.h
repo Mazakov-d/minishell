@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:40:29 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 19:15:12 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 15:09:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_env
 
 /*env_functions.c*/
 int		ft_strcmp(char *s1, char *s2);
-t_env	*find_in_env(t_env **env, char *str);
+t_env	*find_in_env(t_env *env, char *str);
 
 /*env_parsing.c*/
 void	*free_new_env(t_env *env);
