@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 15:46:09 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:53 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ char	*expand_line_var(char *line, char *var_value, int i_var, int save)
 			flag++;
 			while (line[i_line] && line[i_line] != ' ' && !(sq % 2))
 			{
-				is_in_quote(line[i_line++], &sq, &dq);
+				is_in_quote(line[i_line], &sq, &dq);
 				if (save != dq)
 					break;
+				i_line++;
 			}
 			while (var_value && var_value[i_var])
 				s[i_s++] = var_value[i_var++];
@@ -169,7 +170,7 @@ int main(int ac, char **av, char **env)
 	t_data	*data = malloc(sizeof(t_data));
 	char	*line;
 
-	line = ft_strdup("salut $a '$'p ca va");
+	line = ft_strdup("salut \"$a\" '$'p ca va");
 	data->env = env_to_struct(env);
 	printf("%s\n", line);
 	ft_export(data->env, "a=salut");
