@@ -3,62 +3,90 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:07:04 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/21 12:03:39 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/25 18:04:42 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "parsing/minishell.h"
 
-/*test for the function getcwd*/
-char	*ft_getcwd()
+void	disp_tab_str(char **str)
 {
-	char	 *str;
-	size_t	size;
-	char	*save;
+	int	i;
 
-	str = NULL;
-	size = 1;
-	while(!str)
+	i = 0;
+	while (str && str[i])
 	{
-		str = malloc(sizeof(char) * size);
-		if (!str)
-			return (NULL);
-		save = str;
-		str = getcwd(str, size);
-		if (!str)
-		{
-			free(save);
-			size++;
-		}
+		printf("mot: %s\n", str[i]);
+		i++;
 	}
-	printf("The path is : %s\n", str);
-	printf("This is the size : %zu\n", size);
-	return (str);
 }
 
-/*test for the function chdir*/
-int	ft_chdir(char *new_path)
+void	dispData(t_data *tmp)
 {
-	char	*actual_path;
-	int		rtrn;
+	// t_data *tmp;
 
-	actual_path = ft_getcwd();
-	printf("actual path : %s\n", actual_path);
-	free(actual_path);
-	rtrn = chdir(new_path);
-	printf("return value of chdir : %d\n", rtrn);
-	actual_path = ft_getcwd();
-	printf("new path : %s\n", actual_path);
-	free(actual_path);
-	return (0);
+	// tmp = token;
+	disp_tab_str(tmp->cmds);
+	printf("fin de phrase ! \n");
 }
 
-int main()
+void	append(t_data **token, char **av, int ac)
 {
-	ft_chdir("");
+	t_data	*tmp;
+	int		i;
+
+	i = 1;
+	
+	*token = ft_calloc(1, sizeof(t_data));
+	tmp = *token;
+	// tmp = (t_data *)ft_calloc(4, sizeof(t_data));
+	// tmp->next = (t_data *)ft_calloc(4, sizeof(t_data));
+	// tmp->next->next = (t_data *)ft_calloc(4, sizeof(t_data));
+	while (i < ac)
+	{
+		tmp->cmds = ft_split(av[i], ' ');
+		dispData(tmp);
+		tmp->next = ft_calloc(1, sizeof(t_data));
+		tmp->next->prev = tmp;
+		tmp = tmp->next;
+		i++;
+	}
+}
+
+void	reset_head(t_data **data, char **av)
+{
+	// t_data	*tmp;
+	t_data	*new;
+
+	new = (t_data *)ft_calloc(4, sizeof(t_data));
+	new->cmds = ft_split(av[3], ' ');
+	// tmp = *data;
+	*data = new;
+}
+
+init_tok(t_data **token)
+{
+	*token = (t_data *)ft_calloc(1, sizeof(t_data));
+	(*token)->next = (t_data *)ft_calloc(1, sizeof(t_data));
+	(*token)->next->next = (t_data *)ft_calloc(1, sizeof(t_data));
+}
+
+int main(int ac, char **av)
+{
+	t_data	*token;
+
+	// token = ft_calloc(4, sizeof(t_data));
+	// token->next = (t_data *)ft_calloc(4, sizeof(t_data));
+	// token->next->next = (t_data *)ft_calloc(4, sizeof(t_data));
+	// init_tok(&token);
+	append(&token, av, ac);
+	// reset_head(&token, av);
+	printf("\n\n");
+	dispData(token);
 }

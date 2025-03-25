@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:03 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/23 18:04:32 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/25 17:29:33 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,44 @@
 
 // recuperer la fonction split_minishell apres voir split les pipe, ensuite travailler avec
 
-void init_tokenizer(t_data *token, char *line)
+void	init
+
+void tokenizer(t_data **token, char *line)
 {
 	int i;
 	int j;
 	char **split;
+	t_data	*tmp;
 
 	i = 0;
-	token = (t_data *)malloc(count_pipe(line) * sizeof(t_data *));
+	tmp
+	token = (t_data *)malloc((count_pipe(line) + 1) * sizeof(t_data));
 	alloc_check(token->cmds, token, STRUCT);
+	tmp = *token;
 	split = ft_split(line, "|");
-	alloc_check(token->cmds, token, VOID);
+	alloc_check(split, token, VOID);
 	while (split[i])
 	{
-		if (is_echo(split[i]))
-			token->cmds = split_minishell(split[i]);
-		j = 0;
-		while (token->cmds[i][j])
+		if (!is_echo(split[i]))
 		{
-			if (token->cmds[i][j] == '<')
-			{
-				if (token->cmds[i][j] + 1 == '<')
-					parse_here_doc()
-			}
+			tmp->cmds = split_minishell(split[i]);
+			allo_check(token->cmds, token, VOID);
+			handle_token(token);
+			tmp = tmp->next;
 		}
+		i++;
 	}
 }
 
+// void	handle_token(t_data *token)
+// {
+// 	int		i;
+// 	t_data	*tmp;
+
+// 	i = 0;
+// 	tmp = token;
+// 	while ()
+// }
 // while (line && line[i] && line[i] == ' ')
 // 	i++;
 // {
@@ -60,9 +71,8 @@ void init_tokenizer(t_data *token, char *line)
 // }
 // else
 // 	parse_command(token, line, i);
-set_tokenizer(token, line)
-}
-
+// set_tokenizer(token, line)
+// }
 void parse_here_doc(char *line, t_data *token, int index)
 {
 	token->type = H_DOC;

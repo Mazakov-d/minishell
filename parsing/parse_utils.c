@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:51:21 by yassinefahf       #+#    #+#             */
-/*   Updated: 2025/03/23 18:11:47 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/24 15:21:55 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void free_data(t_data **token)
 		while (current != NULL)
 		{
 			if (current->cmds)
-				free_tab_str(cmds);
+				free_tab_str(current->cmds);
 			next = current->next;
 			free(current);
 			current = next;

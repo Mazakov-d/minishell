@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 15:56:53 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/25 16:52:04 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ int main(int ac, char **av, char **env)
 	t_data	*data = malloc(sizeof(t_data));
 	char	*line;
 
-	line = ft_strdup("salut \"$a\" '$'p ca va");
+	line = ft_strdup("salut \"$b\" '$'p ca va");
 	data->env = env_to_struct(env);
 	printf("%s\n", line);
 	ft_export(data->env, "a=salut");

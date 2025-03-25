@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 13:38:18 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/25 16:55:59 by yafahfou         ###   ########.fr       */
+/*   Created: 2025/03/25 14:38:23 by yafahfou          #+#    #+#             */
+/*   Updated: 2025/03/25 14:39:20 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main()
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	int i;
-	char *line;
-	t_data *token;
+	void	*dest;
+	size_t	i;
 
+	if (size != 0 && nmemb > __SIZE_MAX__ / size)
+		return (NULL);
+	dest = malloc((nmemb * size) * sizeof(void));
+	if (!dest)
+		return (NULL);
 	i = 0;
-	while (i == 0)
+	while (i < size * nmemb)
 	{
-		line = readline(NULL);
-		if (line)
-		{
-			tokenizer(&token, line);
-			printf("i read %s\n", line);
-		}
-		else
-			exit(0);
+		*(unsigned char *)(dest + i) = 0;
+		i++;
 	}
-	return (0);
+	return (dest);
 }

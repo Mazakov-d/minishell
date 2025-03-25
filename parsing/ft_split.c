@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 17:08:27 by yassinefahf       #+#    #+#             */
-/*   Updated: 2025/03/23 17:11:38 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/24 17:14:26 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char **free_split(char **split, int j)
 
 char **ft_split(char const *s, char c)
 {
-	ssize_t i;
+	size_t i;
 	int j;
 	int index;
 	char **split;
@@ -74,11 +74,11 @@ char **ft_split(char const *s, char c)
 	split = malloc((ft_count_word(s, c) + 1) * sizeof(char *));
 	if (!split)
 		return (NULL);
-	while (++i <= (ssize_t)ft_strlen(s))
+	while (++i <= ft_strlen(s))
 	{
 		if (s[i] != c && index < 0)
 			index = i;
-		else if ((s[i] == c || i == (ssize_t)ft_strlen(s)) && index >= 0)
+		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
 		{
 			split[j] = ft_dup((char *)s, index, i);
 			if (!split[j++])
