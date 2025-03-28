@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 16:52:04 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/28 11:04:18 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*expand_line_var(char *line, char *var_value, int i_var, int save)
 	return (s);
 }
 
-
 char	*ft_strndup(char *str, int n)
 {
 	char	*dup;
@@ -170,7 +169,7 @@ int main(int ac, char **av, char **env)
 	t_data	*data = malloc(sizeof(t_data));
 	char	*line;
 
-	line = ft_strdup("salut \"$b\" '$'p ca va");
+	line = ft_strdup("salut $a '$'p ca va");
 	data->env = env_to_struct(env);
 	printf("%s\n", line);
 	ft_export(data->env, "a=salut");

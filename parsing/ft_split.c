@@ -5,87 +5,113 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 17:08:27 by yassinefahf       #+#    #+#             */
-/*   Updated: 2025/03/24 17:14:26 by yafahfou         ###   ########.fr       */
+/*   Created: 2024/10/11 18:13:30 by yassine           #+#    #+#             */
+/*   Updated: 2025/03/28 16:12:07 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_count_word(char const *s, char c)
+void	free_str_tab(char **tab, int limit)
 {
-	int index;
-	int cpt;
+	int	i;
 
-	index = 0;
-	cpt = 0;
-	while (s && *s)
-	{
-		if (*s != c && index == 0)
-		{
-			index = 1;
-			cpt++;
-		}
-		else if (*s == c)
-			index = 0;
-		s++;
-	}
-	return (cpt);
+	i = -1;
+	while (++i < limit)
+		free(tab[i]);
+	free(tab);
 }
 
-char *ft_dup(char *s, int start, int finish)
+int	calc_nb_words(char const *s, char *delim)
 {
-	int i;
-	char *dest;
+	int	i;
+	int	counter;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	dest = malloc((finish - start + 1) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	while (start < finish)
-		dest[i++] = s[start++];
-	dest[i] = '\0';
-	return (dest);
-}
-
-char **free_split(char **split, int j)
-{
-	int i;
-
-	i = -1;
-	while (++i < j)
-		free(split[i]);
-	free(split);
-	return (NULL);
-}
-
-char **ft_split(char const *s, char c)
-{
-	size_t i;
-	int j;
-	int index;
-	char **split;
-
-	i = -1;
-	index = -1;
-	j = 0;
-	split = malloc((ft_count_word(s, c) + 1) * sizeof(char *));
-	if (!split)
-		return (NULL);
-	while (++i <= ft_strlen(s))
+	counter = 0;
+	while (s[i])
 	{
-		if (s[i] != c && index < 0)
-			index = i;
-		else if ((s[i] == c || i == ft_strlen(s)) && index >= 0)
+		if ((pipe_pos_in_str(delim, s[i]) == -1) 
+			&& ((pipe_pos_in_str(delim, s[i
+							+ 1])) >= 0 || s[i + 1] == '\0'))
+			counter++;
+		i++;
+	}
+	return (counter);
+}
+
+char	*fill_word(char *word, char const *s, int start, int end)
+{
+	int	i;
+
+	i = 0;
+	while (start < end)
+		word[i++] = s[start++];
+	word[i] = '\0';
+	return (word);
+}
+
+int	alloc_n_write(char **res, char const *s, char *delim)
+{
+	int	i;
+	int	old_i;
+	int	i_res;
+	int	sq;
+	
+	i = 0;
+	i_res = 0;
+	sq = 0;
+	while (s[i])
+	{
+		while (s[i] && (pipe_pos_in_str(delim, s[i])) >= 0)
+			i++;
+		old_i = i;
+		while (s[i] && pipe_pos_in_str(delim, s[i]) == -1 || (sq % 2))
+			is_in_sq(s[i++], &sq);
+		if (old_i < i)
 		{
-			split[j] = ft_dup((char *)s, index, i);
-			if (!split[j++])
-				return (free_split(split, j));
-			index = -1;
+			res[i_res] = malloc((i - old_i + 1) * sizeof(char));
+			if (!res[i_res])
+				return (i_res);
+			fill_word(res[i_res++], s, old_i, i);
 		}
 	}
-	split[j] = 0;
-	return (split);
+	return (-1);
 }
+
+char	**pipe_split(char const *s, char *delim)
+{
+	char	**res;
+	int		nb_words;
+	int		i_alloc_res;
+
+	if (!s)
+		return (NULL);
+	nb_words = calc_nb_words(s, delim);
+	res = malloc((nb_words + 1) * sizeof(char *));
+	if (!res)
+		return (NULL);
+	i_alloc_res = alloc_n_write(res, s, delim);
+	if (i_alloc_res != -1)
+	{
+		free_str_tab(res, i_alloc_res);
+		return (NULL);
+	}
+	res[nb_words] = NULL;
+	return (res);
+}
+
+// #include <stdio.h>
+
+// int main(int ac, char **av)
+// {
+// 	char **s;
+// 	int	i = 0;
+
+// 	s = pipe_split(av[1], "|");
+// 	while (s[i])
+// 	{
+// 		printf("split: %s\n", s[i]);
+// 		i++;
+// 	}
+// }

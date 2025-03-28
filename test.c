@@ -6,7 +6,7 @@
 /*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:07:04 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 18:04:42 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:18:16 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	append(t_data **token, char **av, int ac)
 	int		i;
 
 	i = 1;
-	
 	*token = ft_calloc(1, sizeof(t_data));
 	tmp = *token;
 	// tmp = (t_data *)ft_calloc(4, sizeof(t_data));
@@ -50,7 +49,7 @@ void	append(t_data **token, char **av, int ac)
 	// tmp->next->next = (t_data *)ft_calloc(4, sizeof(t_data));
 	while (i < ac)
 	{
-		tmp->cmds = ft_split(av[i], ' ');
+		tmp->cmds = pipe_split(av[i], " ");
 		dispData(tmp);
 		tmp->next = ft_calloc(1, sizeof(t_data));
 		tmp->next->prev = tmp;
@@ -65,28 +64,28 @@ void	reset_head(t_data **data, char **av)
 	t_data	*new;
 
 	new = (t_data *)ft_calloc(4, sizeof(t_data));
-	new->cmds = ft_split(av[3], ' ');
+	new->cmds = pipe_split(av[3], " ");
 	// tmp = *data;
 	*data = new;
 }
 
-init_tok(t_data **token)
+void	init_tok(t_data **token)
 {
 	*token = (t_data *)ft_calloc(1, sizeof(t_data));
 	(*token)->next = (t_data *)ft_calloc(1, sizeof(t_data));
 	(*token)->next->next = (t_data *)ft_calloc(1, sizeof(t_data));
 }
 
-int main(int ac, char **av)
-{
-	t_data	*token;
+// int main(int ac, char **av)
+// {
+// 	t_data	*token;
 
-	// token = ft_calloc(4, sizeof(t_data));
-	// token->next = (t_data *)ft_calloc(4, sizeof(t_data));
-	// token->next->next = (t_data *)ft_calloc(4, sizeof(t_data));
-	// init_tok(&token);
-	append(&token, av, ac);
-	// reset_head(&token, av);
-	printf("\n\n");
-	dispData(token);
-}
+// 	// token = ft_calloc(4, sizeof(t_data));
+// 	// token->next = (t_data *)ft_calloc(4, sizeof(t_data));
+// 	// token->next->next = (t_data *)ft_calloc(4, sizeof(t_data));
+// 	// init_tok(&token);
+// 	append(&token, av, ac);
+// 	reset_head(&token, av);
+// 	printf("\n\n");
+// 	dispData(token);
+// }

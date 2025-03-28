@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/25 14:40:18 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/28 16:39:11 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	**split_minishell(char *str)
 // int main(int ac, char **av)
 // {
 // 	int i = 0;
-// 	char **strs = split_minishell("echo          '''ghfghjfghfhgfgh");
+// 	char **strs = split_minishell("echo          \"      dede\" ghfghjfghfhgfgh");
 // 	while (strs[i])
 // 	{
 // 		printf("%s\n", strs[i]);
