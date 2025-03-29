@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:57 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 18:36:39 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/29 10:24:21 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../includes/env.h"
 
-void	ft_env(t_env *env)
+void ft_env(t_env *env)
 {
 	while (env->prev)
 		env = env->prev;

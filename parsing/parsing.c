@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/28 16:39:11 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/29 10:45:21 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-void	is_in_quote(char c, int *sq, int *dq)
+void is_in_quote(char c, int *sq, int *dq)
 {
 	if (c == '\'' && (*dq % 2) == 0)
 		*sq = *sq + 1;
@@ -21,12 +21,12 @@ void	is_in_quote(char c, int *sq, int *dq)
 		*dq = *dq + 1;
 }
 
-static int	count_word_minishell(char *str)
+static int count_word_minishell(char *str)
 {
-	int	count;
-	int	i;
-	int	dq;
-	int	sq;
+	int count;
+	int i;
+	int dq;
+	int sq;
 
 	count = 1;
 	i = 0;
@@ -47,11 +47,11 @@ static int	count_word_minishell(char *str)
 	return (count);
 }
 
-int	word_len(char *str)
+int word_len(char *str)
 {
-	int	i;
-	int	dq;
-	int	sq;
+	int i;
+	int dq;
+	int sq;
 
 	i = 0;
 	dq = 0;
@@ -68,9 +68,9 @@ int	word_len(char *str)
 
 char *str_dup_minishell(char *s, int *i, int k, int j)
 {
-    char	*str;
-    int		dq;
-    int		sq;
+	char *str;
+	int dq;
+	int sq;
 
 	str = malloc(sizeof(char) * (word_len(s + *i) + 1));
 	if (!str)
@@ -98,13 +98,13 @@ char *str_dup_minishell(char *s, int *i, int k, int j)
 	*i = k;
 	str[j] = '\0';
 	return (str);
-}	
+}
 
-char	**split_minishell(char *str)
+char **split_minishell(char *str)
 {
-	char	**strs;
-	int		i;
-	int		j;
+	char **strs;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -119,7 +119,7 @@ char	**split_minishell(char *str)
 		{
 			strs[j] = str_dup_minishell(str, &i, i, 0);
 			if (!strs[j])
-				return (/*free_strs(strs)*/NULL);
+				return (/*free_strs(strs)*/ NULL);
 			j++;
 		}
 	}
@@ -127,14 +127,13 @@ char	**split_minishell(char *str)
 	return (strs);
 }
 
-// int main(int ac, char **av)
+// int main()
 // {
 // 	int i = 0;
-// 	char **strs = split_minishell("echo          \"      dede\" ghfghjfghfhgfgh");
+// 	char **strs = split_minishell("echo          \"    \"  dede\" ghfghjfghfhgfgh");
 // 	while (strs[i])
 // 	{
 // 		printf("%s\n", strs[i]);
 // 		i++;
 // 	}
 // }
-

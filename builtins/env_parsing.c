@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   env_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:40:11 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 18:50:18 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/29 10:23:55 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../includes/env.h"
 
-void	*free_new_env(t_env *env)
+void *free_new_env(t_env *env)
 {
-	t_env	*save;
+	t_env *save;
 
 	save = NULL;
 	while (env->prev)
@@ -32,9 +32,9 @@ void	*free_new_env(t_env *env)
 	return (NULL);
 }
 
-size_t	ft_strlen(char *str)
+size_t ft_strlen(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (str && str[i])
@@ -42,10 +42,10 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(char *str)
+char *ft_strdup(char *str)
 {
-	char	*rtn;
-	size_t	i;
+	char *rtn;
+	size_t i;
 
 	rtn = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!rtn)
@@ -60,9 +60,9 @@ char	*ft_strdup(char *str)
 	return (rtn);
 }
 
-t_env	*add_lst(t_env *prev)
+t_env *add_lst(t_env *prev)
 {
-	t_env	*next;
+	t_env *next;
 
 	next = malloc(sizeof(t_env));
 	if (!next)
@@ -74,12 +74,12 @@ t_env	*add_lst(t_env *prev)
 	return (next);
 }
 
-t_env	*env_to_struct(char **env)
+t_env *env_to_struct(char **env)
 {
-	t_env	*new_env;
-	t_env	*save;
-	char	*line;
-	int		i;
+	t_env *new_env;
+	t_env *save;
+	char *line;
+	int i;
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)

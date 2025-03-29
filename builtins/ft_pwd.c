@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:13:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/24 19:14:47 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/29 10:25:09 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../includes/builtin.h"
 
-void	error_malloc(char *error)
+void error_malloc(char *error)
 {
 	printf("Error : of malloc in %s\n", error);
 }
 
-void	ft_pwd(void)
+void ft_pwd(void)
 {
-	char	*pwd;
-	char	*save;
-	size_t	size;
+	char *pwd;
+	char *save;
+	size_t size;
 
 	pwd = NULL;
 	size = 1;

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:02:42 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 15:10:16 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:25:30 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../includes/builtin.h"
 
-void	remove_node(t_env *node)
+void remove_node(t_env *node)
 {
-	t_env	*prev;
-	t_env	*next;
+	t_env *prev;
+	t_env *next;
 
 	prev = node->prev;
-	next = node ->next;
+	next = node->next;
 	prev->next = next;
 	next->prev = prev;
 	if (node->line)
@@ -26,9 +26,9 @@ void	remove_node(t_env *node)
 	free(node);
 }
 
-int	ft_unset(t_env *env, char *var_name)
+int ft_unset(t_env *env, char *var_name)
 {
-	t_env	*save;
+	t_env *save;
 
 	save = find_in_env(env, var_name);
 	if (save)

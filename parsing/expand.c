@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/28 11:04:18 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/29 10:48:51 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <stdio.h>
+#include "../includes/minishell.h"
+#include "../includes/env.h"
+#include "../includes/builtin.h"
 
-char	*expand_null(char *line, int flag, int save, int i)
+char *expand_null(char *line, int flag, int save, int i)
 {
-	char	*dup;
-	int		j;
-	int		dq;
-	int		sq;
+	char *dup;
+	int j;
+	int dq;
+	int sq;
 
 	sq = 0;
 	dq = 0;
@@ -37,7 +38,7 @@ char	*expand_null(char *line, int flag, int save, int i)
 			{
 				is_in_quote(line[i], &sq, &dq);
 				if (save != dq)
-					break ;
+					break;
 				i++;
 			}
 		}
@@ -48,14 +49,14 @@ char	*expand_null(char *line, int flag, int save, int i)
 	return (dup);
 }
 
-char	*expand_line_var(char *line, char *var_value, int i_var, int save)
+char *expand_line_var(char *line, char *var_value, int i_var, int save)
 {
-	char	*s;
-	int		dq;
-	int		sq;
-	int		flag;
-	int		i_line;
-	int		i_s;
+	char *s;
+	int dq;
+	int sq;
+	int flag;
+	int i_line;
+	int i_s;
 
 	while (var_value && var_value[i_var] && var_value[i_var - 1] != '=')
 		i_var++;
@@ -91,10 +92,10 @@ char	*expand_line_var(char *line, char *var_value, int i_var, int save)
 	return (s);
 }
 
-char	*ft_strndup(char *str, int n)
+char *ft_strndup(char *str, int n)
 {
-	char	*dup;
-	int		i;
+	char *dup;
+	int i;
 
 	i = 0;
 	dup = malloc(sizeof(char) * (n + 1));
@@ -109,12 +110,11 @@ char	*ft_strndup(char *str, int n)
 	return (dup);
 }
 
-char	*search_var_in_env(char *line, char *var, int end_var, t_env *env)
+char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
 {
-	t_env	*ptr;
-	char	*var_name;
-	char	*expanded_line;
-	int		i;
+	t_env *ptr;
+	char *var_name;
+	char *expanded_line;
 
 	var_name = ft_strndup(var + 1, end_var);
 	if (!var_name)
@@ -129,12 +129,11 @@ char	*search_var_in_env(char *line, char *var, int end_var, t_env *env)
 	return (expanded_line);
 }
 
-char	*expand_var(char *line, t_data *data, int i, int j)
+char *expand_var(char *line, t_data *data, int i, int j)
 {
-	char	*expanded_line;
-	int		sq;
-	int		dq;
-	int		save;
+	int sq;
+	int dq;
+	int save;
 
 	dq = 0;
 	sq = 0;
@@ -164,15 +163,17 @@ char	*expand_var(char *line, t_data *data, int i, int j)
 	return (line);
 }
 
-int main(int ac, char **av, char **env)
-{
-	t_data	*data = malloc(sizeof(t_data));
-	char	*line;
+// int main(int ac, char **av, char **env)
+// {
+// 	(void)ac;
+// 	(void)av;
+// 	t_data *data = malloc(sizeof(t_data));
+// 	char *line;
 
-	line = ft_strdup("salut $a '$'p ca va");
-	data->env = env_to_struct(env);
-	printf("%s\n", line);
-	ft_export(data->env, "a=salut");
-	ft_export(data->env, "b=coucou");
-	printf("%s\n", expand_var(line, data, 0, 0));
-}
+// 	line = ft_strdup("salut $a '$'p ca va");
+// 	data->env = env_to_struct(env);
+// 	printf("%s\n", line);
+// 	ft_export(data->env, "a=salut");
+// 	ft_export(data->env, "b=coucou");
+// 	printf("%s\n", expand_var(line, data, 0, 0));
+// }

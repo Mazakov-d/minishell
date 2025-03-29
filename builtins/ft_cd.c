@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:54 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/25 15:10:10 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/29 10:25:47 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../includes/builtin.h"
 
-char	*ft_strcat(char *str_a, char *str_b)
+char *ft_strcat(char *str_a, char *str_b)
 {
-	char	*str;
-	int		i;
-	int		j;
+	char *str;
+	int i;
+	int j;
 
 	str = malloc(sizeof(char) * (ft_strlen(str_a) + ft_strlen(str_b) + 1));
 	if (!str)
@@ -39,11 +39,11 @@ char	*ft_strcat(char *str_a, char *str_b)
 	return (str);
 }
 
-char	*get_pwd(char *prefix)
+char *get_pwd(char *prefix)
 {
-	size_t	size;
-	char	*pwd;
-	char	*save;
+	size_t size;
+	char *pwd;
+	char *save;
 
 	pwd = NULL;
 	save = NULL;
@@ -65,10 +65,10 @@ char	*get_pwd(char *prefix)
 	return (pwd);
 }
 
-void	put_pwd(t_env *env, char **pwd, int i)
+void put_pwd(t_env *env, char **pwd, int i)
 {
-	char	*save;
-	t_env	*env_ptr;
+	char *save;
+	t_env *env_ptr;
 
 	if (i == 2)
 		env_ptr = find_in_env(env, "OLDPWD");
@@ -84,9 +84,9 @@ void	put_pwd(t_env *env, char **pwd, int i)
 	}
 }
 
-int	get_home(t_env *env, char **arg)
+int get_home(t_env *env, char **arg)
 {
-	t_env	*ptr;
+	t_env *ptr;
 
 	ptr = find_in_env(env, "HOME");
 	if (!ptr)
@@ -100,11 +100,10 @@ int	get_home(t_env *env, char **arg)
 	return (0);
 }
 
-int	ft_cd(t_env *env, char *arg)
+int ft_cd(t_env *env, char *arg)
 {
-	char	*old_pwd;
-	char	*new_pwd;
-	t_env	*env_pwd;
+	char *old_pwd;
+	char *new_pwd;
 
 	if (!arg && get_home(env, &arg))
 		return (1);

@@ -3,33 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:51:21 by yassinefahf       #+#    #+#             */
-/*   Updated: 2025/03/28 18:39:17 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/29 10:12:02 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-void	is_in_sq(char c, int *sq)
+void is_in_sq(char c, int *sq)
 {
 	if (c == '\'')
 		*sq = *sq + 1;
 }
 
-int pipe_pos_in_str(char *str, char c)
+int pos_in_str(char *str, char c)
 {
 	int i;
-	// int	sq;
-	// int	dq;
 
 	i = 0;
-	// sq = 0;
-	// dq = 0;
 	while (str && str[i])
 	{
-		// is_in_quote(c, &sq, &dq);
 		if (str[i] == c)
 			return (i);
 		i++;
@@ -50,55 +45,64 @@ void free_tab_str(char **str)
 	free(str);
 }
 
-void free_data(t_token **token)
+// void free_data(t_token **token)
+// {
+// 	t_token *current;
+// 	t_token *next;
+
+// 	if (*token)
+// 	{
+// 		current = *token;
+// 		next = NULL;
+// 		while (current != NULL)
+// 		{
+// 			if (current->cmds)
+// 				free_tab_str(current->cmds);
+// 			next = current->next;
+// 			free(current);
+// 			current = next;
+// 		}
+// 		*token = NULL;
+// 	}
+// }
+
+void free_token_prev(t_token **token)
 {
-	t_token *current;
-	t_token *next;
+	t_token *tmp;
+	t_token *prev;
 
 	if (*token)
 	{
-		current = *token;
-		next = NULL;
-		while (current != NULL)
-		{
-			if (current->cmds)
-				free_tab_str(current->cmds);
-			next = current->next;
-			free(current);
-			current = next;
-		}
-		*token = NULL;
+		tmp = *token;
+		free(tmp);
 	}
+	tmp = (*token)->prev;
+	while (tmp != NULL)
+	{
+		if (tmp->cmds)
+			free_tab_str(tmp->cmds);
+		prev = tmp->prev;
+		free(tmp);
+		tmp = prev;
+	}
+	*token = NULL;
 }
-
-// void	free_token_prev(t_token **token)
-// {
-// 	t_token *tmp;
-
-// 	tmp = (*token)->prev;
-// 	while (tmp != NULL)
-// 	{
-// 		free
-// 	}
-
-
-
-// }
 
 void alloc_check(void *to_check, t_token *token, int mode)
 {
 	if (mode == STRUCT)
 	{
-		// if (token->prev && !token)
-		// 	free_token_prev(&token);
+		if (token->prev && !token)
+			free_token_prev(&token);
 		if (!token)
 			exit(1);
 	}
-	else
+	else if (mode == VOID)
 	{
 		if (!to_check)
 		{
-			free_data(&token);
+			if (token)
+				free_token_prev(&token);
 			exit(1);
 		}
 	}

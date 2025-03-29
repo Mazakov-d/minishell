@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:03 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/28 18:28:15 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/29 10:49:39 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 // check si j'ai un echo dans ma string!!!1
 
@@ -18,12 +18,11 @@
 
 // void	init
 
-// dire a dorian qu'il faut gerer $? et $avec les chiffre
 void tokenizer(t_token **token, char *line)
 {
 	int i;
 	char **split;
-	t_token	*tmp;
+	t_token *tmp;
 
 	i = 0;
 	*token = (t_token *)ft_calloc(1, sizeof(t_token));
@@ -35,7 +34,7 @@ void tokenizer(t_token **token, char *line)
 	{
 		tmp->cmds = split_minishell(split[i]);
 		alloc_check(tmp->cmds, *token, VOID);
-		tmp->next = (t_token*)ft_calloc(1, sizeof(t_token));
+		tmp->next = (t_token *)ft_calloc(1, sizeof(t_token));
 		alloc_check(tmp->cmds, tmp, STRUCT);
 		tmp->next->prev = tmp;
 		tmp = tmp->next;

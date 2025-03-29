@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 18:13:30 by yassine           #+#    #+#             */
-/*   Updated: 2025/03/28 16:12:07 by yafahfou         ###   ########.fr       */
+/*   Updated: 2025/03/29 10:17:05 by yassinefahf      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
-void	free_str_tab(char **tab, int limit)
+void free_str_tab(char **tab, int limit)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < limit)
@@ -22,27 +22,25 @@ void	free_str_tab(char **tab, int limit)
 	free(tab);
 }
 
-int	calc_nb_words(char const *s, char *delim)
+int calc_nb_words(char const *s, char *delim)
 {
-	int	i;
-	int	counter;
+	int i;
+	int counter;
 
 	i = 0;
 	counter = 0;
 	while (s[i])
 	{
-		if ((pipe_pos_in_str(delim, s[i]) == -1) 
-			&& ((pipe_pos_in_str(delim, s[i
-							+ 1])) >= 0 || s[i + 1] == '\0'))
+		if ((pos_in_str(delim, s[i]) == -1) && ((pos_in_str(delim, s[i + 1])) >= 0 || s[i + 1] == '\0'))
 			counter++;
 		i++;
 	}
 	return (counter);
 }
 
-char	*fill_word(char *word, char const *s, int start, int end)
+char *fill_word(char *word, char const *s, int start, int end)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (start < end)
@@ -51,22 +49,22 @@ char	*fill_word(char *word, char const *s, int start, int end)
 	return (word);
 }
 
-int	alloc_n_write(char **res, char const *s, char *delim)
+int alloc_n_write(char **res, char const *s, char *delim)
 {
-	int	i;
-	int	old_i;
-	int	i_res;
-	int	sq;
-	
+	int i;
+	int old_i;
+	int i_res;
+	int sq;
+
 	i = 0;
 	i_res = 0;
 	sq = 0;
 	while (s[i])
 	{
-		while (s[i] && (pipe_pos_in_str(delim, s[i])) >= 0)
+		while (s[i] && (pos_in_str(delim, s[i])) >= 0)
 			i++;
 		old_i = i;
-		while (s[i] && pipe_pos_in_str(delim, s[i]) == -1 || (sq % 2))
+		while (s[i] && (pos_in_str(delim, s[i]) == -1 || (sq % 2)))
 			is_in_sq(s[i++], &sq);
 		if (old_i < i)
 		{
@@ -79,11 +77,11 @@ int	alloc_n_write(char **res, char const *s, char *delim)
 	return (-1);
 }
 
-char	**pipe_split(char const *s, char *delim)
+char **pipe_split(char const *s, char *delim)
 {
-	char	**res;
-	int		nb_words;
-	int		i_alloc_res;
+	char **res;
+	int nb_words;
+	int i_alloc_res;
 
 	if (!s)
 		return (NULL);
