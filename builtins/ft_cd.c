@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:54 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/29 10:25:47 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:12:15 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtin.h"
-
-char *ft_strcat(char *str_a, char *str_b)
-{
-	char *str;
-	int i;
-	int j;
-
-	str = malloc(sizeof(char) * (ft_strlen(str_a) + ft_strlen(str_b) + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (str_a && str_a[i])
-	{
-		str[i] = str_a[i];
-		i++;
-	}
-	j = 0;
-	while (str_b && str_b[j])
-	{
-		str[i + j] = str_b[j];
-		j++;
-	}
-	str[i + j] = 0;
-	if (str_b)
-		free(str_b);
-	return (str);
-}
 
 char *get_pwd(char *prefix)
 {
@@ -61,7 +34,7 @@ char *get_pwd(char *prefix)
 			size++;
 		}
 	}
-	pwd = ft_strcat(prefix, pwd);
+	pwd = ft_strcat(prefix, pwd, 1, 0);
 	return (pwd);
 }
 
@@ -94,7 +67,7 @@ int get_home(t_env *env, char **arg)
 		printf("cd: HOME not set\n");
 		return (1);
 	}
-	*arg = ft_strcat(ptr->line + 5, NULL);
+	*arg = ft_strcat(ptr->line + 5, NULL, 0, 0);
 	if (!*arg)
 		return (2);
 	return (0);

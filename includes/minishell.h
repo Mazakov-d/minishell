@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:26 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/29 10:12:16 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:37:21 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "builtin.h"
 #include "env.h"
+#include "utils.h"
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -56,6 +57,13 @@ typedef struct s_data
 	int status;
 } t_data;
 
+typedef struct s_all
+{
+	t_token	*token;
+	t_env	*env;
+	int		status;
+}	t_all;
+
 int calc_nb_words(char const *s, char *delim);
 // void 	init_tokenizer(t_data *token, char *line);
 void alloc_check(void *to_check, t_token *token, int mode);
@@ -69,7 +77,8 @@ void is_in_sq(char c, int *sq);
 char **pipe_split(char const *s, char *delim);
 void *ft_calloc(size_t nmemb, size_t size);
 char **split_minishell(char *str);
-void tokenizer(t_token **token, char *line);
+void tokenizer(t_token **token, char *line, t_env *env);
 // void free_data(t_data **token);
+char	*expand_var(char *line, t_env *env, int i, int j);
 
 #endif

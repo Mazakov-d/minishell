@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:44:49 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/29 10:45:21 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:46:52 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-
-void is_in_quote(char c, int *sq, int *dq)
-{
-	if (c == '\'' && (*dq % 2) == 0)
-		*sq = *sq + 1;
-	if (c == '\"' && (*sq % 2) == 0)
-		*dq = *dq + 1;
-}
+#include "../includes/utils.h"
 
 static int count_word_minishell(char *str)
 {
@@ -82,8 +75,10 @@ char *str_dup_minishell(char *s, int *i, int k, int j)
 		is_in_quote(s[k], &sq, &dq);
 		if ((s[k] == ' ') && !(sq % 2) && !(dq % 2))
 			break;
-		if (s[k] == '$' && s[k + 1] == '\'')
+		if (s[k] == '$' && (s[k + 1] == '\'' || s[k + 1] == '"' ))
 			k++;
+		else if (s[k] == '$' && !is_alpha(s[k + 1]))
+			k += 2;
 		else if (s[k] == '\'' && ((sq % 2) || (!(dq % 2))))
 			k++;
 		else if (s[k] == '\"' && ((dq % 2) || (!(sq % 2))))

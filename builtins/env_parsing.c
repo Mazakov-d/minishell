@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:40:11 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/29 10:23:55 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:39:04 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ void *free_new_env(t_env *env)
 	}
 	free(env);
 	return (NULL);
-}
-
-size_t ft_strlen(char *str)
-{
-	size_t i;
-
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
 }
 
 char *ft_strdup(char *str)

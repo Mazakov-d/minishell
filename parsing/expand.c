@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/29 10:48:51 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:48:56 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,6 @@ char *expand_line_var(char *line, char *var_value, int i_var, int save)
 	return (s);
 }
 
-char *ft_strndup(char *str, int n)
-{
-	char *dup;
-	int i;
-
-	i = 0;
-	dup = malloc(sizeof(char) * (n + 1));
-	if (!dup)
-		return (NULL);
-	while (str && str[i] && i < n)
-	{
-		dup[i] = str[i];
-		i++;
-	}
-	dup[i] = 0;
-	return (dup);
-}
-
 char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
 {
 	t_env *ptr;
@@ -118,7 +100,10 @@ char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
 
 	var_name = ft_strndup(var + 1, end_var);
 	if (!var_name)
+	{
+		free(line);
 		return (NULL);
+	}
 	ptr = find_in_env(env, var_name);
 	if (!ptr)
 		expanded_line = expand_null(line, 0, 0, 0);
@@ -129,7 +114,7 @@ char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
 	return (expanded_line);
 }
 
-char *expand_var(char *line, t_data *data, int i, int j)
+char *expand_var(char *line, t_env *env, int i, int j)
 {
 	int sq;
 	int dq;
@@ -140,9 +125,9 @@ char *expand_var(char *line, t_data *data, int i, int j)
 	while (line && line[i])
 	{
 		is_in_quote(line[i], &sq, &dq);
-		if (line[i] == '$' && !(sq % 2) && line[i + 1])
+		if (line[i] == '$' && !(sq % 2) && line[i + 1] && is_alpha(line[i + 1]))
 		{
-			if (line[i + 1] != ' ' && line[i + 1] != '"' && line[i + 1] != '\'')
+			if (line[i + 1] != ' ' && line[i + 1] != '"' && line[i + 1] != '\'' && !is_digit(line[i + 1]))
 			{
 				j = i;
 				save = dq;
@@ -153,7 +138,7 @@ char *expand_var(char *line, t_data *data, int i, int j)
 						break;
 					j++;
 				}
-				line = search_var_in_env(line, line + i, (j - i - 1), data->env);
+				line = search_var_in_env(line, line + i, (j - i - 1), env);
 				if (!line)
 					return (NULL);
 			}

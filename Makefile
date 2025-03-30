@@ -1,9 +1,11 @@
 NAME= minishell
+
 CC=cc
 FLAGS= -Wall -Wextra -Werror
+
 LIBS = -lreadline
 OBJDIR = .obj
-SRCS=main.c  parsing/*.c builtins/*.c
+SRCS= main.c  $(wildcard parsing/*.c) $(wildcard builtins/*.c) $(wildcard utils_str/*.c)
 HEADERS= includes/builtin.h includes/env.h includes/minishell.h
 OBJS=$(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 all: $(NAME)

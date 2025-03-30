@@ -3,16 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:38:18 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/29 10:30:26 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 17:32:52 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/builtin.h"
 #include "includes/minishell.h"
 #include "includes/env.h"
+
+int	is_closed(char *line)
+{
+	int	dq;
+	int	sq;
+	int	i;
+
+	i = 0;
+	dq = 0;
+	sq = 0;
+	while (line && line[i])
+	{
+		is_in_quote(line[i], &sq, &dq);
+		i++;
+	}
+	if ((sq % 2) || (dq % 2))
+		return (1);
+	return (0);
+}
 
 void disp_tab_str(char **str)
 {
@@ -26,7 +45,7 @@ void disp_tab_str(char **str)
 	}
 }
 
-void dispData(t_token *token)
+void disp_data(t_token *token)
 {
 	t_token *tmp;
 
@@ -40,24 +59,34 @@ void dispData(t_token *token)
 	}
 }
 
-// int main()
-// {
-// 	int i;
-// 	char *line;
-// 	t_token *token;
+int main(int ac, char **av, char **env)
+{
+	char *line;
+	t_token *token;
+	
+	(void)ac;
+	(void)av;
+	
+	t_env *ev;
+	ev = env_to_struct(env);
 
-// 	i = 0;
-// 	while (i == 0)
-// 	{
-// 		line = readline(NULL);
-// 		if (line)
-// 		{
-// 			tokenizer(&token, line);
-// 			dispData(token);
-// 			// printf("i read %s\n", line);
-// 		}
-// 		else
-// 			exit(0);
-// 	}
-// 	return (0);
-// }
+	while (1)
+	{
+		line = readline(NULL);
+		if (is_closed(line) == 1)
+		{
+			printf("not closed\n");
+		}
+		else if (line)
+		{
+			tokenizer(&token, line, ev);
+			disp_data(token);
+			// printf("i read %s\n", line);
+		}
+		else
+			exit(0);
+	}
+	return (0);
+}
+
+

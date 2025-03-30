@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:03 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/29 10:49:39 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/30 16:38:02 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 // void	init
 
-void tokenizer(t_token **token, char *line)
+void tokenizer(t_token **token, char *line, t_env *env)
 {
 	int i;
 	char **split;
@@ -32,6 +32,7 @@ void tokenizer(t_token **token, char *line)
 	alloc_check(split, *token, VOID);
 	while (split[i])
 	{
+		split[i] = expand_var(split[i], env, 0, 0);
 		tmp->cmds = split_minishell(split[i]);
 		alloc_check(tmp->cmds, *token, VOID);
 		tmp->next = (t_token *)ft_calloc(1, sizeof(t_token));
