@@ -6,13 +6,11 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:38:18 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/31 13:08:26 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:24:55 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/builtin.h"
 #include "includes/minishell.h"
-#include "includes/env.h"
 
 int	is_closed(char *line)
 {

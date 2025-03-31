@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:45:53 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/31 13:09:53 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:25:18 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,34 @@
 
 # include "env.h"
 
-/*ft_echo.c*/
+/*
+** Echo command
+*/
 int		is_n(char *flag);
 void	ft_echo(char **str);
 
-/*ft_env.c*/
+/*
+** Environment commands
+*/
 void	ft_env(t_env *env);
-
-/*ft_export.c*/
 int		add_lst_str(t_env *prev, char *var);
 char	*get_var_name(char *str);
 void	modify_line(t_env *env, char *new_line);
 int		ft_export(t_env *env, char *new_var);
 
-/*ft_exit.c*/
-
-/*ft_pwd.c*/
+/*
+** Directory and file commands
+*/
 void	ft_pwd(void);
+void	error_malloc(char *error);
+char	*get_pwd(char *prefix);
+void	put_pwd(t_env *env, char **pwd, int i);
+int		get_home(t_env *env, char **arg);
+int		ft_cd(t_env *env, char *arg);
 
-/*ft_cd.c*/
-
-/*ft_unset.c*/
+/*
+** Environment manipulation commands
+*/
 void	remove_node(t_env *node);
 int		ft_unset(t_env *env, char *str);
 

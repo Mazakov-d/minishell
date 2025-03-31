@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/31 13:17:50 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:09:05 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_export(t_env *env, char *new_var)
 	var_name = get_var_name(new_var);
 	if (!var_name)
 		return (1);
-	if (is_alpha(var_name) != 1)
+	if (is_alpha(var_name[0]) != 1)
 	{
 		printf("export: not an identifier: %s\n", var_name);
 		return (1);

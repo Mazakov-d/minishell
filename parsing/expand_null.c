@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:53:16 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/31 13:53:47 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:28:08 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int skip_var(char *line, int i, int *sq, int *dq)
 	return (i);
 }
 
-char *expand_null(char *line, int flag, int save, int i)
+char *expand_null(char *line, int flag, int i)
 {
 	char *dup;
 	int j;
@@ -52,7 +52,6 @@ char *expand_null(char *line, int flag, int save, int i)
 		is_in_quote(line[i], &sq, &dq);
 		if (line[i] == '$' && !(sq % 2) && flag == 0)
 		{
-			save = dq;
 			flag++;
 			i = skip_var(line, i, &sq, &dq);
 		}

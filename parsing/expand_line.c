@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:54:11 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/31 13:54:30 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:00:39 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int handle_dollar(char *line, int i, int *sq, int *dq)
 	return (i);
 }
 
-char *expand_line_var(char *line, char *var_value, int i_var, int save)
+char *expand_line_var(char *line, char *var_value, int i_var)
 {
 	char *s;
 	int i_line;

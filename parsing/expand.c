@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 19:21:17 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/31 13:55:16 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:35:59 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,28 @@ static int find_var_end(char *line, int i, int *sq, int *dq)
 		j++;
 	}
 	return (j);
+}
+
+char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
+{
+	t_env *ptr;
+	char *var_name;
+	char *expanded_line;
+
+	var_name = ft_strndup(var + 1, end_var);
+	if (!var_name)
+	{
+		free(line);
+		return (NULL);
+	}
+	ptr = find_in_env(env, var_name);
+	if (!ptr)
+		expanded_line = expand_null(line, 0, 0);
+	else
+		expanded_line = expand_line_var(line, ptr->line, 0);
+	free(line);
+	free(var_name);
+	return (expanded_line);
 }
 
 char *expand_var(char *line, t_env *env, int i, int j)
@@ -137,28 +159,6 @@ char *expand_var(char *line, t_env *env, int i, int j)
 // 	}
 // 	s[i_s] = '\0';
 // 	return (s);
-// }
-
-// char *search_var_in_env(char *line, char *var, int end_var, t_env *env)
-// {
-// 	t_env *ptr;
-// 	char *var_name;
-// 	char *expanded_line;
-
-// 	var_name = ft_strndup(var + 1, end_var);
-// 	if (!var_name)
-// 	{
-// 		free(line);
-// 		return (NULL);
-// 	}
-// 	ptr = find_in_env(env, var_name);
-// 	if (!ptr)
-// 		expanded_line = expand_null(line, 0, 0, 0);
-// 	else
-// 		expanded_line = expand_line_var(line, ptr->line, 0, 0);
-// 	free(line);
-// 	free(var_name);
-// 	return (expanded_line);
 // }
 
 // char *expand_var(char *line, t_env *env, int i, int j)
