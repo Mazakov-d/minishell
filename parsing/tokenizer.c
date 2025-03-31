@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:03 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/30 16:38:02 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 15:06:33 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void tokenizer(t_token **token, char *line, t_env *env)
 	char **split;
 	t_token *tmp;
 
+	(void)env;
 	i = 0;
 	*token = (t_token *)ft_calloc(1, sizeof(t_token));
 	alloc_check((*token)->cmds, *token, STRUCT);

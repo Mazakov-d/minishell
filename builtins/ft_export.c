@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/31 14:09:05 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 14:52:50 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	ft_export(t_env *env, char *new_var)
 		return (1);
 	if (is_alpha(var_name[0]) != 1)
 	{
-		printf("export: not an identifier: %s\n", var_name);
+		printf("export: '%s': not a valid identifier\n", var_name);
 		return (1);
 	}
 	save = find_in_env(env, var_name);
