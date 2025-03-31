@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:38:18 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/30 17:32:52 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:08:26 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	is_closed(char *line)
 	return (0);
 }
 
-void disp_tab_str(char **str)
+void	disp_tab_str(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
@@ -45,9 +45,9 @@ void disp_tab_str(char **str)
 	}
 }
 
-void disp_data(t_token *token)
+void	disp_data(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = token;
 	while (tmp != NULL)
@@ -59,17 +59,15 @@ void disp_data(t_token *token)
 	}
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	char *line;
-	t_token *token;
-	
+	char	*line;
+	t_token	*token;
+	t_env	*ev;
+
 	(void)ac;
 	(void)av;
-	
-	t_env *ev;
 	ev = env_to_struct(env);
-
 	while (1)
 	{
 		line = readline(NULL);
@@ -88,5 +86,3 @@ int main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-
-

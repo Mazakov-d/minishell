@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:30 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/29 10:26:01 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:17:50 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/env.h"
 
-int print_export(t_env *env, int i)
+int	print_export(t_env *env, int i)
 {
-	int q;
+	int	q;
 
 	while (env->prev)
 		env = env->prev;
@@ -41,10 +41,10 @@ int print_export(t_env *env, int i)
 	return (0);
 }
 
-int add_lst_str(t_env *prev, char *var)
+int	add_lst_str(t_env *prev, char *var)
 {
-	t_env *new_node;
-	t_env *ptr;
+	t_env	*new_node;
+	t_env	*ptr;
 
 	if (!prev->prev && !prev->next && !prev->line)
 	{
@@ -64,11 +64,11 @@ int add_lst_str(t_env *prev, char *var)
 	return (0);
 }
 
-char *get_var_name(char *str)
+char	*get_var_name(char *str)
 {
-	char *var;
-	int i;
-	int j;
+	char	*var;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -88,25 +88,30 @@ char *get_var_name(char *str)
 	return (var);
 }
 
-void modify_line(t_env *env, char *new_line)
+void	modify_line(t_env *env, char *new_line)
 {
-	char *save;
+	char	*save;
 
 	save = env->line;
 	free(save);
 	env->line = new_line;
 }
 
-int ft_export(t_env *env, char *new_var)
+int	ft_export(t_env *env, char *new_var)
 {
-	char *var_name;
-	t_env *save;
+	char	*var_name;
+	t_env	*save;
 
 	if (!new_var)
 		return (print_export(env, 0));
 	var_name = get_var_name(new_var);
 	if (!var_name)
 		return (1);
+	if (is_alpha(var_name) != 1)
+	{
+		printf("export: not an identifier: %s\n", var_name);
+		return (1);
+	}
 	save = find_in_env(env, var_name);
 	free(var_name);
 	if (!save)

@@ -6,17 +6,17 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:54 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/30 17:12:15 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:14:32 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtin.h"
 
-char *get_pwd(char *prefix)
+char	*get_pwd(char *prefix)
 {
-	size_t size;
-	char *pwd;
-	char *save;
+	size_t	size;
+	char	*pwd;
+	char	*save;
 
 	pwd = NULL;
 	save = NULL;
@@ -38,10 +38,10 @@ char *get_pwd(char *prefix)
 	return (pwd);
 }
 
-void put_pwd(t_env *env, char **pwd, int i)
+void	put_pwd(t_env *env, char **pwd, int i)
 {
-	char *save;
-	t_env *env_ptr;
+	char	*save;
+	t_env	*env_ptr;
 
 	if (i == 2)
 		env_ptr = find_in_env(env, "OLDPWD");
@@ -57,9 +57,9 @@ void put_pwd(t_env *env, char **pwd, int i)
 	}
 }
 
-int get_home(t_env *env, char **arg)
+int	get_home(t_env *env, char **arg)
 {
-	t_env *ptr;
+	t_env	*ptr;
 
 	ptr = find_in_env(env, "HOME");
 	if (!ptr)
@@ -73,10 +73,10 @@ int get_home(t_env *env, char **arg)
 	return (0);
 }
 
-int ft_cd(t_env *env, char *arg)
+int	ft_cd(t_env *env, char *arg)
 {
-	char *old_pwd;
-	char *new_pwd;
+	char	*old_pwd;
+	char	*new_pwd;
 
 	if (!arg && get_home(env, &arg))
 		return (1);

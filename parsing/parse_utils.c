@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:51:21 by yassinefahf       #+#    #+#             */
-/*   Updated: 2025/03/29 10:12:02 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:22:56 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void is_in_sq(char c, int *sq)
+void	is_in_sq(char c, int *sq)
 {
 	if (c == '\'')
 		*sq = *sq + 1;
 }
 
-int pos_in_str(char *str, char c)
+int	pos_in_str(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
@@ -32,9 +32,9 @@ int pos_in_str(char *str, char c)
 	return (-1);
 }
 
-void free_tab_str(char **str)
+void	free_tab_str(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
@@ -66,10 +66,10 @@ void free_tab_str(char **str)
 // 	}
 // }
 
-void free_token_prev(t_token **token)
+void	free_token_prev(t_token **token)
 {
-	t_token *tmp;
-	t_token *prev;
+	t_token	*tmp;
+	t_token	*prev;
 
 	if (*token)
 	{
@@ -88,7 +88,7 @@ void free_token_prev(t_token **token)
 	*token = NULL;
 }
 
-void alloc_check(void *to_check, t_token *token, int mode)
+void	alloc_check(void *to_check, t_token *token, int mode)
 {
 	if (mode == STRUCT)
 	{
@@ -108,10 +108,10 @@ void alloc_check(void *to_check, t_token *token, int mode)
 	}
 }
 
-int count_pipe(char *line)
+int	count_pipe(char *line)
 {
-	int nb;
-	int i;
+	int	nb;
+	int	i;
 
 	i = 0;
 	nb = 0;
@@ -124,9 +124,9 @@ int count_pipe(char *line)
 	return (nb);
 }
 
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!s1)
@@ -137,14 +137,15 @@ int ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	else if (!s2)
 		return ((unsigned char)s1[i]);
-	while (i < n && s1[i] && s2[i] && (unsigned char)s1[i] == (unsigned char)s2[i])
+	while (i < n && s1[i] && s2[i]
+		&& (unsigned char)s1[i] == (unsigned char)s2[i])
 		i++;
 	if (i < n)
 		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 	return (0);
 }
 
-int is_echo(char *str)
+int	is_echo(char *str)
 {
 	while (str && *str)
 	{

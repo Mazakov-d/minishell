@@ -6,15 +6,15 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 13:40:11 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/30 17:39:04 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:13:49 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/env.h"
 
-void *free_new_env(t_env *env)
+void	*free_new_env(t_env *env)
 {
-	t_env *save;
+	t_env	*save;
 
 	save = NULL;
 	while (env->prev)
@@ -32,10 +32,10 @@ void *free_new_env(t_env *env)
 	return (NULL);
 }
 
-char *ft_strdup(char *str)
+char	*ft_strdup(char *str)
 {
-	char *rtn;
-	size_t i;
+	char	*rtn;
+	size_t	i;
 
 	rtn = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!rtn)
@@ -50,9 +50,9 @@ char *ft_strdup(char *str)
 	return (rtn);
 }
 
-t_env *add_lst(t_env *prev)
+t_env	*add_lst(t_env *prev)
 {
-	t_env *next;
+	t_env	*next;
 
 	next = malloc(sizeof(t_env));
 	if (!next)
@@ -64,12 +64,12 @@ t_env *add_lst(t_env *prev)
 	return (next);
 }
 
-t_env *env_to_struct(char **env)
+t_env	*env_to_struct(char **env)
 {
-	t_env *new_env;
-	t_env *save;
-	char *line;
-	int i;
+	t_env	*new_env;
+	t_env	*save;
+	char	*line;
+	int		i;
 
 	new_env = malloc(sizeof(t_env));
 	if (!new_env)

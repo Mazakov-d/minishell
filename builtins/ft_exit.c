@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmazari <dmazari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:16:43 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/21 17:51:01 by dmazari          ###   ########.fr       */
+/*   Updated: 2025/03/31 13:19:12 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // void	free_all(t_all *all)
 // {
-	
+
 // }
 
 // void	ft_exit(t_all *all, int ext)

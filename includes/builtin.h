@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:45:53 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/30 17:39:26 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:09:53 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_export(t_env *env, char *new_var);
 /*ft_exit.c*/
 
 /*ft_pwd.c*/
-void	ft_pwd();
+void	ft_pwd(void);
 
 /*ft_cd.c*/
 

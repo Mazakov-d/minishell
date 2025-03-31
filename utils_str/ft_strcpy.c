@@ -6,7 +6,7 @@
 /*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:03:46 by dorianmazar       #+#    #+#             */
-/*   Updated: 2025/03/30 17:43:30 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:19:47 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ size_t	ft_strlen(char *line)
 	return (i);
 }
 
-char *ft_strcat(char *str_a, char *str_b, int flag, int i)
+char	*ft_strcat(char *str_a, char *str_b, int flag, int i)
 {
-	char *str;
-	int j;
+	char	*str;
+	int		j;
 
 	str = malloc(sizeof(char) * (ft_strlen(str_a) + ft_strlen(str_b) + 1));
 	if (!str)
@@ -52,10 +52,10 @@ char *ft_strcat(char *str_a, char *str_b, int flag, int i)
 	return (str);
 }
 
-char *ft_strndup(char *str, int n)
+char	*ft_strndup(char *str, int n)
 {
-	char *dup;
-	int i;
+	char	*dup;
+	int		i;
 
 	i = 0;
 	dup = malloc(sizeof(char) * (n + 1));

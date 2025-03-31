@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yassinefahfouhi <yassinefahfouhi@studen    +#+  +:+       +#+        */
+/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:19:12 by dmazari           #+#    #+#             */
-/*   Updated: 2025/03/29 10:23:33 by yassinefahf      ###   ########.fr       */
+/*   Updated: 2025/03/31 13:19:00 by dorianmazar      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/env.h"
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s2)
@@ -28,9 +28,9 @@ int ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-t_env *find_in_env(t_env *env, char *str)
+t_env	*find_in_env(t_env *env, char *str)
 {
-	t_env *save;
+	t_env	*save;
 
 	save = env;
 	while (save->prev)
