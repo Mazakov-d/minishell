@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dorianmazari <dorianmazari@student.42.f    +#+  +:+       +#+        */
+/*   By: yafahfou <yafahfou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:11:03 by yafahfou          #+#    #+#             */
-/*   Updated: 2025/03/31 15:06:33 by dorianmazar      ###   ########.fr       */
+/*   Updated: 2025/04/02 17:29:56 by yafahfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,60 @@
 
 // recuperer la fonction split_minishell apres voir split les pipe, ensuite travailler avec
 
-// void	init
+enum e_type	parse_one_cmd(char *cmd)
+{
+	int	i;
+	int	sq;
+	int	dq;
+
+	dq = 0;
+	sq = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		is_in_quote(cmd[i], &sq, &dq);
+		if (cmd[i] == '<')
+	}
+
+}
+
+void	parse_cmds(t_token *tmp)
+{
+	int	dq;
+	int	sq;
+	int	i;
+	int	j;
+
+	i = 0;
+	dq = 0;
+	sq = 0;
+	j = 0;
+	while (tmp->cmds[i])
+	{
+		j = 0;
+		while (tmp->cmds[i][j])
+		{
+			is_in_quote(tmp->cmds[i][j], &sq, &dq);
+			tmp->type = parse_one_cmd(tmp->cmds[i]);
+			
+		}
+	}
+
+
+}
+
+void	handle_token(t_token **token)
+{
+	int	i;
+	t_token	*tmp;
+
+	tmp = *token;
+	while (tmp)
+	{
+		parse_cmd(tmp);
+		tmp = tmp->next;
+	}
+}
 
 void tokenizer(t_token **token, char *line, t_env *env)
 {
@@ -42,6 +95,7 @@ void tokenizer(t_token **token, char *line, t_env *env)
 		tmp = tmp->next;
 		i++;
 	}
+	
 }
 
 // int	main(int ac, char **av
